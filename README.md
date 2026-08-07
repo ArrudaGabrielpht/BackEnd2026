@@ -130,3 +130,78 @@ Os tipos de requisição HTTP indicam a ação que o usuário deseja executar no
 - Descompactar o Arquivo do PHP na pasta C:src\php (Para Descompactar usar o 7Zip = Melhor) => nunca salvar arquivo ou programas na raiz do sistema(C:)
 - Adicionar a Pasta do PHP(C:\src\php) as Variáveis de Ambiente do Sistema (PATH)
 - Verificar a Instalação rodando o comando *php --version*.
+
+#### Criando minha primeira aplicação em PHP
+ 
+ 1. Antes de começara rodar:
+
+ - Preparar meu VSCode 
+  - Criar um profeile próprio para PHP;
+  - Instaar extensões necessárias para trasnformar o VSCode em uma IDE;
+   - PHP Inteliphense -> permite a ultilização de Snippets(atalhos de código)
+   - PHP Debug -> auxilia no encontro de erros no código
+   - PHP Cs Fixer -> formtação de código (Identação)
+   - PHP Server -> auxilia na criação de um servidor local para PHP
+ - Desabilitamos o PHP nativo do VSCode (@builtin PHP)
+
+2. Hello Word (Primeiro servidor em PHP)
+
+#### Estudo de Váriaveis e Constantes em PHP
+
+Declarar variávies é alocar um espaço na memória que permite a inclusão e manipulação de dados. 
+
+**Variávies**
+
+- Devem ser declaradas usando "$" antes do nome da variável;
+- São não tipadas ( não precisa declarar o tipo dela na criação); 
+- Podem ser String, Numéricas ( interger e float), Booleanas  e Nulas. Não Permite declaração de Undefined;
+- Usar o "declare(strict_type=1);" na primeira linha do arquivo;
+
+**Constantes**
+
+- Não podem ser mudadas ou redeclaradas após a criação;
+- Pode ser criada usando o "const" ou o "define";
+- Não permite interpolação;
+
+#### Estudo de Operadores
+
+**Aritméticos**: São usados para realizar cálculos.
+
+| Operador | Nome | Exemplo | Resultado |
+| - | - | - | - |
+| + | Adição | 10+5 | 15 |
+| - | Subtração | 10-5 | 5 |
+| * | Multiplicação | 10*5 | 50 |
+| / | Divisão | 10/5 | 2 |
+| % | Modulo(Resto) | 10%3 | 1 (10 div 3 da 3, sobra 1) |
+| ** | Expoente | 2**3 | 8(2 elevado a 3) 
+
+obs: O operador % é o melhor amigo de um programador, permite ordenar listas e organizar filas e pilhas.
+
+**Relacionais**:  Permite o relacionamento entre dois ou mais valores, o resultado de uma operação é sempre uma booleana (tru or false)
+
+| Operador | Significado | Exemplo | Resultado |
+| - |  - | - | - |
+| > | Maior que | 18 > 18 | false |
+| >= | Maior ou igual a | 18 >= 18 | true |
+| < | Menor que | 10 < 20 | true |
+| <= | Menor ou igual a | 10 <=5 | false |
+| == | Comparação de Valor | "10"==10 |  true |
+| === | Comparação Estrita | "10"===10 | false |
+| ! | Diferente | "10"!=10 | false|
+| !== | Estritamente Diferente | "10"!==10 | true | 
+
+**Lógicos**: Permite a combinação entre sentenças.
+
+- Operador AND (E) -> && : Para o resultado ser verdadeir,todas as combinações precisam ser verdadeiras.
+ - true && true -> true
+ - true && false -> false
+
+- Operador OR (OU) -> || : para o resultado ser verdadeiro basta apenas uma condição ser verdadeira
+ - false || true -> true
+ - false || false -> false
+
+- Operador NOT (NÂO) -> ! : Inverte a lógica da Operação
+ -!true -> false
+ -!false -> true
+
