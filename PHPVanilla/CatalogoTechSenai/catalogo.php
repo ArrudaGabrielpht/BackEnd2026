@@ -31,60 +31,100 @@ $smartphonesComDesconto = array_map(function($p) {
     <style>
         body {
             font-family: Arial;
-            padding: 20px;
+            margin: 0;
+            padding: 40px;
             background-color: #f1f2f6;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .subtitulo {
+            color: #777;
+            margin-bottom: 30px;
         }
 
         .card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px;
             width: 250px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             display: inline-block;
-            margin-right: 15px;
+            vertical-align: top;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            text-align: left;
+        }
+
+        .categoria {
+            color: #777;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .card h2 {
+            margin: 12px 0;
+        }
+
+        .preco-antigo {
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
         }
 
         .preco {
             color: #27ae60;
-            font-size: 1.4em;
+            font-size: 22px;
             font-weight: bold;
+            margin-top: 5px;
         }
 
-        .categoria {
-            font-size: 0.8em;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .desconto {
+            display: inline-block;
+            background-color: #27ae60;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
 
-<h2>InnerTechs - Ofertas Especiais</h2>
+    <h1>InnerTechs</h1>
+    <p class="subtitulo">Ofertas especiais em Smartphones</p>
 
-<?php foreach ($smartphonesComDesconto as $produto): ?>
+    <?php foreach ($smartphonesComDesconto as $produto): ?>
 
-    <div class="card">
+        <div class="card">
 
-        <span class="categoria">
-            <?php echo $produto['categoria']; ?>
-        </span>
+            <span class="categoria">
+                <?php echo $produto['categoria']; ?>
+            </span>
 
-        <h3>
-            <?php echo $produto['nome']; ?>
-        </h3>
+            <h2>
+                <?php echo $produto['nome']; ?>
+            </h2>
 
-        <p class="preco">
-            R$ <?php echo number_format($produto['preco'], 2, ",", "."); ?>
-        </p>
+            <span class="desconto">15% OFF</span>
 
-    </div>
+            <p class="preco-antigo">
+                R$ <?php echo number_format($produto['preco'] / 0.85, 2, ",", "."); ?>
+            </p>
 
-<?php endforeach; ?>
+            <p class="preco">
+                R$ <?php echo number_format($produto['preco'], 2, ",", "."); ?>
+            </p>
+
+        </div>
+
+    <?php endforeach; ?>
 
 </body>
 
 </html>
+```
