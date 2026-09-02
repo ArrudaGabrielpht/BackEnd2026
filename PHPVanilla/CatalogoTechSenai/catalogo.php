@@ -126,5 +126,4 @@ $smartphonesComDesconto = array_map(function($p) {
 
 </body>
 
-</html>
-```
+</html
