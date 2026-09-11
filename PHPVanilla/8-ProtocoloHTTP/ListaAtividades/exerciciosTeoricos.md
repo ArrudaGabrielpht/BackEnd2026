@@ -15,3 +15,5 @@
 7. Sticky Forms é uma técnica que mantém os dados preenchidos no formulário depois que ele é enviado. Isso melhora a experiência do usuário porque, caso tenha algum erro, ele não precisa preencher tudo novamente.
 
 8. Na aba **Network** do DevTools é possível verificar as requisições feitas pelo navegador. Depois de enviar o formulário, basta verificar o **Request Method** da requisição. Se estiver `POST`, significa que o formulário foi enviado pelo método POST.
+
+> **Obs.: usei IA apenas como apoio para deixar a parte visual dos exercícios práticos mais atraente visualmente!**

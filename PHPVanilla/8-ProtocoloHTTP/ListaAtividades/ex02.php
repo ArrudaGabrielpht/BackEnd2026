@@ -42,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <style>
 body { font-family: Arial; background: #f2f2f2; padding: 30px; color: #333; }
 .container { width: 500px; }
-h1 { color: #141022; }
+h1 { color: #13101d; }
 form, .resultado { background: white; padding: 15px; border: 1px solid #ccc; }
 input, button { width: 100%; padding: 10px; margin: 5px 0; box-sizing: border-box; }
-button { background: #130f20; color: white; border: none; }
+button { background: #0a0911; color: white; border: none; }
 .erro { color: red; }
 .resultado { margin-top: 10px; }
 </style>
