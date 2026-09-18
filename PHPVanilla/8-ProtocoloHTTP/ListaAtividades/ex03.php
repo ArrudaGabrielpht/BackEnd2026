@@ -1,60 +1,87 @@
 <?php
-
 declare(strict_types=1);
 
-$email = $_POST['email'] ?? '';
-$erro = '';
-$sucesso = false;
+//declaração das variáveis
+$email="";
+$senha="";
+$loginValidado = false;
+$erros=[];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $senha = $_POST['senha'] ?? '';
+//pegar os dados do Formuláro
+//verifica se o formulário está enviadno os dados como post
+if($_SERVER["REQUEST_METHOD"] === "POST"){
+    $email = trim($_POST["email"] ?? ""); //limpar os espaços vazios antes e depois do texto
+    $senha = trim($_POST["senha"] ?? ""); 
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $erro = 'Digite um e-mail válido.';
-    } elseif (strlen($senha) < 6) {
-        $erro = 'A senha deve ter no mínimo 6 caracteres.';
-    } elseif ($email === 'admin@senai.br' && $senha === 'senhaSegura123') {
-        $sucesso = true;
-    } else {
-        $erro = 'Credenciais inválidas';
+    //validações de dados => encontrando erros
+    //Erro de Email
+    if($email === "" || !filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $erros["email"] = "Informe um Email Válido.";
+    }
+    //Erro de Senha
+    if(strlen($senha) < 6){
+        $erros["senha"] = "A Senha Deve Ter no Mínimo 6 Dígitos !";
+    }
+    
+    //Se senha e email estão OK
+    if(empty($erros)){
+        $emailCorreto = "admin@senai.br";
+        $senhaCorreta = "senhaSegura123";
+
+        // validando o email e a senha
+        if($email === $emailCorreto && $senha ==$senhaCorreta){
+            $loginValidado = true;
+        } else{
+            $erros["login"] = "Credenciais Inválidas!";
+        }
     }
 }
+
 ?>
 
-<style>
-body { font-family: Arial; background: #f2f2f2; padding: 30px; color: #333; }
-.container { width: 400px; }
-h1 { color: #151220; }
-form { background: white; padding: 15px; border: 1px solid #ccc; }
-input, button { width: 100%; padding: 10px; margin: 5px 0; box-sizing: border-box; }
-button { background: #141020; color: white; border: none; }
-.erro { color: red; }
-.sucesso { background: white; color: green; padding: 15px; margin-top: 10px; }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Seguro</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #eef2f7; padding: 30px; }
+        .card { max-width: 420px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-bottom: 6px; font-weight: bold; }
+        input { width: 100%; padding: 10px; margin-bottom: 12px; box-sizing: border-box; }
+        .erro { color: #c0392b; font-size: 0.9em; margin-top: -8px; margin-bottom: 10px; }
+        .sucesso { background: #e7f9ee; color: #1f8a4c; padding: 12px; border-radius: 8px; font-weight: bold; }
+        .alerta { background: #fdecea; color: #b42318; padding: 12px; border-radius: 8px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Login do Sistema</h2>
+        <?php if(isset($erros["login"])): ?> 
+            <div class="alerta"><?=  htmlspecialchars($erros["login"], ENT_QUOTES, "UTF-8") ?></div>    
+        <?php endif; ?>
+        
+        <?php if($loginValidado): ?> 
+            <div class="sucesso">Bem-vindo(a), Admin!!!</div>    
+        <?php else: ?>
+            <form method="POST">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" value="<?= htmlspecialchars($email, ENT_QUOTES, "UTF-8") ?>">
+                <?php if(isset($erros["email"])): ?>
+                    <div class="erro"><?= htmlspecialchars($erros["email"], ENT_QUOTES, "UTF-8") ?></div>
+                <?php endif; ?>
+                
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" value="">
+                <?php if(isset($erros["senha"])): ?>
+                    <div class="erro"><?= htmlspecialchars($erros["senha"], ENT_QUOTES, "UTF-8") ?></div>
+                <?php endif; ?>
 
-<div class="container">
+                <button type="submit">Entrar</button>
 
-    <h1>Login SENAI</h1>
-
-    <form method="POST">
-        <input type="email" name="email" placeholder="E-mail"
-            value="<?= htmlspecialchars($email) ?>">
-
-        <input type="password" name="senha" placeholder="Senha">
-
-        <button>Entrar</button>
-    </form>
-
-    <?php if ($erro): ?>
-        <p class="erro"><?= htmlspecialchars($erro) ?></p>
-    <?php endif; ?>
-
-    <?php if ($sucesso): ?>
-        <div class="sucesso">
-            <strong>Bem-vindo!</strong>
-            <p>Login realizado com sucesso.</p>
-        </div>
-    <?php endif; ?>
-
-</div>
-
+            </form>
+        <?php endif; ?>
+    </div>
+</body>
+</html>

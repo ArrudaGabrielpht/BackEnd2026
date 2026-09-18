@@ -7,22 +7,27 @@ $entrada = $_POST['valor_entrada'] ?? '';
 $parcelas = $_POST['numero_parcelas'] ?? '';
 
 $opcoes = [12, 24, 36, 48, 60];
+
 $erro = '';
 $financiado = 0;
 $juros = 0;
 $parcela = 0;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     if (!is_numeric($valor) || $valor <= 0) {
         $erro = 'Valor do veículo inválido.';
     } elseif (!is_numeric($entrada) || $entrada < $valor * 0.20) {
         $erro = 'A entrada deve ser de pelo menos 20%.';
-    } elseif (!in_array((int) $parcelas, $opcoes, true)) {
+    } elseif (!in_array((int)$parcelas, $opcoes)) {
         $erro = 'Número de parcelas inválido.';
     } else {
-        $financiado = (float) $valor - (float) $entrada;
-        $juros = $financiado * 0.015 * (int) $parcelas;
-        $parcela = ($financiado + $juros) / (int) $parcelas;
+
+        $financiado = $valor - $entrada;
+
+        $juros = $financiado * 0.015 * $parcelas;
+
+        $parcela = ($financiado + $juros) / $parcelas;
     }
 }
 ?>
@@ -54,37 +59,53 @@ button { background: #100d1b; color: white; border: none; }
             value="<?= htmlspecialchars($entrada) ?>">
 
         <select name="numero_parcelas">
+
             <option value="">Escolha as parcelas</option>
 
             <?php foreach ($opcoes as $opcao): ?>
+
                 <option value="<?= $opcao ?>"
-                    <?= (int) $parcelas === $opcao ? 'selected' : '' ?>>
+                    <?= (int)$parcelas == $opcao ? 'selected' : '' ?>>
                     <?= $opcao ?>x
                 </option>
+
             <?php endforeach; ?>
+
         </select>
 
-        <button>Calcular</button>
+        <button type="submit">Calcular</button>
+
     </form>
 
-    <?php if ($erro): ?>
-        <p class="erro"><?= htmlspecialchars($erro) ?></p>
-    <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+    <?php if ($erro != ''): ?>
+
+        <p class="erro">
+            <?= htmlspecialchars($erro) ?>
+        </p>
+
+    <?php elseif ($_SERVER['REQUEST_METHOD'] == 'POST'): ?>
+
         <div class="resultado">
-            <p>Valor financiado:
+
+            <p>
+                Valor financiado:
                 <span class="valor">
                     R$ <?= number_format($financiado, 2, ',', '.') ?>
                 </span>
             </p>
 
-            <p>Total de juros:
+            <p>
+                Total de juros:
                 R$ <?= number_format($juros, 2, ',', '.') ?>
             </p>
 
-            <p>Valor da parcela:
+            <p>
+                Valor da parcela:
                 R$ <?= number_format($parcela, 2, ',', '.') ?>
             </p>
+
         </div>
+
     <?php endif; ?>
 
 </div>
