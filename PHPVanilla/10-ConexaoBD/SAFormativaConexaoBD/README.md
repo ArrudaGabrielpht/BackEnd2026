@@ -64,3 +64,10 @@ VALUES
 
 ## Passo 4: Criando o Arquivo de Configuração (`config/database.ini`)
 
+Crie o arquivo. Ajuste as chaves de acesso ao banco de dado
+
+Colocar o Arquivo de Configuração dentro do `.gitignore`
+
+
+## Passo 5: Contruindo a Classe Singleton e Conexão com o Banco de Dados (`src/ConexaoBanco.php`)
+
