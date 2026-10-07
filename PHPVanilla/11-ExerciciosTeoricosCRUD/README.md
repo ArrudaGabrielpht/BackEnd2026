@@ -69,4 +69,3 @@ Porque o `WHERE` define quais registros serão alterados. Se ele não for coloca
 **Resposta:**
 
 A empresa pode sofrer penalidades previstas na LGPD, como advertências e multas. Além disso, um vazamento pode causar prejuízos financeiros, perda da confiança dos clientes e problemas para a imagem da empresa. A multa pode chegar a 2% do faturamento no Brasil, limitada a R$ 50 milhões por infração.
-![alt text](image-1.png)
