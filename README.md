@@ -1644,3 +1644,79 @@ required_once __DIR__ . "/src/guard.php";
 
 Se a pessoa não estiver autenticada ou não tiver o perfil de acesso, ela é expulsa antes mesmo que qualuqer byte de HTML seja renderizado.
 
+---
+
+### Semana 11 - Programação Orientada a Objetos em PHP.
+
+**Tema:** Paradigma de POO, os 4 Pilares da Orientação a Objetos (Abstração, Encapsulamento, Herança e Polimorfismo), Classes e Instâncias, Construtores, Modificadores de Acesso (`private`, `protected` e `public`) e Modelagem de Dados.
+
+#### **Do Procedural à Orientação a Objetos**
+
+Na Programação Procedural manipulação de variáveis, laços de repetição e funções são interpretados de forma linear, ou seja, todo o código é escrito em um monobloco (`código de um único arquivo de programação`). Essa abordagem resolve problemas lineares com maestria, mas colapsa rapidamente quando sistemas crescem em escala, complexidade e criticidade de regra de negócio.
+
+Na Programação Procedural:
+1. **Os dados estão exposto**: Qualquer função pode alterar qualquer campo a qualquer momento.
+2. **As regras de validação ficam dispersos**: Cada tela precisa checar uma função, gerando dezenas de `if/else`duplicados espalhados pelo código. Se uma regra mudar, o desenvolvedor precisa lembrar de atualizar todos os arquivos do sistema.
+3. **Não há garantia de invariantes**: É impossível garantir que um dado sempre permaneça em estado consistente. 
+
+**O que é Paradigma de Programação Orientado a Objetos (POO)?**
+
+Na **POO**, em vez de separar funções de um lado e dados soltos de outro, nós unimos *dados(atributos)* e as *funções que manipula esses dados(métodos)* dentro de uma única estrutura chamada **Objeto**
+
+**Quadro Comparativo Procedural vs POO:**
+
+| Aspectos | Paradigma Procedural | Praradigma Orientado a Objetos(POO) |
+| - | - | - |
+| **Unidade Fundamental** | Procedimento e Funções soltas | Classes e Objetos |
+| **Proteção de Dados** | Nenhuma (dados globais ou em arrays abertos) | Alta (Encapsulamento) |
+| **Reuso de Códigos** | Inclusão de Script (`required_once`) e cópia | Herança(`extends`), Composição e Interfaces |
+| **Tratamento de Variaçoes** | Blocos gigantes de `switch` e `if/else` | Polimorfismo e Classes Abstratas |
+| **Manutenibilidade** | Complexa à medida que a base de código cresce | Alta, modular, testável e pronta para arquitetura corporativas (MVC, DDD, Clean Architecture) |
+
+#### **Anatomia da Classe e Objeto**
+
+- **Classe**: é molde, a planta baixa, o projeto de engenharia. Ela descreve quais atributos(dados) e comportamentos(métodos) as entidades daquele tipo possuirão. Ela reside no código-fonte e não ocupa espaço dinâmico de dados na memória.
+- **Objeto**: é o produto final construtido a partir do molde, uma instância real, palpável e viva alocada na memória do servidor durante o ciclo de execução. 
+
+```mermaid
+flowchart TD
+    molde["Classe: ContaBancaria<br/>(Molde / Definição de Atributos e Métodos)"]
+
+    molde -->|"new ContaBancaria()"| obj1["Objeto 1 em Memória<br/>Titular: Carlos<br/>Agência: 001<br/>Saldo: R$1.500,00"]
+    molde -->|"new ContaBancaria()"| obj2["Objeto 2 em Memória<br/>Titular: Douglas<br/>Agência: 001<br/>Saldo: R$4.200,00"]
+    molde -->|"new ContaBancaria()"| obj3["Objeto 3 em Memória<br/>Titular: Eduardo<br/>Agência: 003<br/>Saldo: R$850,00"]
+
+    style molde fill:#e0e7ff,stroke:#4338ca,stroke-width:2px,color:#312e81
+    style obj1 fill:#dcfce7,stroke:#15803d,stroke-width:2px,color:#14532d
+    style obj2 fill:#dcfce7,stroke:#15803d,stroke-width:2px,color:#14532d
+    style obj3 fill:#dcfce7,stroke:#15803d,stroke-width:2px,color:#14532d
+```
+
+**O Ciclo de Instanciamento de Objetos**
+
+Ao instanciar um objeto com a instrução `new`, o PHP invoca o método constructor especial `__construct()`. E usamos a palavra-chave `$this`para fazer referência direta e exclusiva ao **atributo** que está sendo executado pelo código naquele momento.
+
+```php
+
+class ContaBancaria {
+    // Declaração tradicional de atributos tipados
+    private string $titular;
+    private int $agencia;
+    private float $saldo;
+
+    // Método Construtor
+    public function __construct(string $titular, int $agencia, float $saldo){
+        $this->titular = titular; //this->titualr refere-se ao atributo da classe
+        $this->agencia = agencia; //this->titualr refere-se ao atributo da classe
+        $this->saldo = saldo; //this->titualr refere-se ao atributo da classe
+    }
+
+    // Método de Acesso
+    public function getSaldo(): float{
+        return $this->saldo;
+    }
+}
+
+//Instanciando dois objetos completamentes independentes
+
+```
